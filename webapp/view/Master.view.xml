@@ -1,0 +1,131 @@
+<mvc:View
+	controllerName="be.ehb.ProjectFlexso.controller.Master"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage
+			id="masterPage"
+			preserveHeaderStateOnScroll="true"
+			toggleHeaderOnTitleClick="false">
+	<semantic:titleHeading>
+			<Title
+				id="masterPageTitle"
+				text="{masterView>/title}"/>
+	</semantic:titleHeading>	
+	<semantic:content>
+            <IconTabBar expandable="false" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false" visible="true" selectedKey="Ok">
+                <items>
+                    <IconTabFilter icon="sap-icon://person-placeholder" iconColor="Positive" text="Personeel" count="" design="Vertical" showAll="false" textDirection="Inherit" enabled="true" visible="true" iconDensityAware="false">
+         
+		<Button text="Create Personeel" type="Accept" icon="sap-icon://add" iconFirst="true" enabled="true" visible="true" iconDensityAware="false" press="_onCreatePersoneel"/>
+		<content>
+			<!-- For client side filtering add this to the items attribute: parameters: {operationMode: 'Client'}}" -->
+			
+			<List
+				id="list"
+				width="auto"
+				class="sapFDynamicPageAlignContent"
+				items="{
+					path: '/EmployeeOdataSet',
+					sorter: {
+						path: 'Firstname',
+						descending: false
+					},
+					groupHeaderFactory: '.createGroupHeader'
+				}"
+				busyIndicatorDelay="{masterView>/delay}"
+				noDataText="{masterView>/noDataText}"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+				growing="true"
+				growingScrollToLoad="true"
+				updateFinished="onUpdateFinished"
+				selectionChange="onSelectionChange">
+				<headerToolbar>
+					<OverflowToolbar>
+						<SearchField
+							id="searchField"
+							showRefreshButton="true"
+							tooltip="{i18n>masterSearchTooltip}"
+							search="onSearch"
+							width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData
+									minWidth="150px"
+									maxWidth="240px"
+									shrinkable="true"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<ToolbarSpacer/>
+						
+					</OverflowToolbar>
+				</headerToolbar>
+				<items>
+					<ObjectListItem
+						type="Navigation"
+						press="onSelectionChange"
+						title="{Firstname} {Lastname}"
+>
+					</ObjectListItem>
+				</items>
+			</List>
+		</content>
+                    </IconTabFilter>
+                    <IconTabSeparator icon="" iconDensityAware="false"/>
+                    <IconTabFilter icon="sap-icon://task" iconColor="Neutral" text="Project" count="" design="Vertical" showAll="false" textDirection="Inherit" enabled="true" visible="true" iconDensityAware="false">
+                    <Button text="Create Project" type="Accept" icon="sap-icon://add" iconFirst="true" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress1"/>
+					<content>
+			<!-- For client side filtering add this to the items attribute: parameters: {operationMode: 'Client'}}" -->
+			
+			<List
+				id="listEmployee"
+				width="auto"
+				class="sapFDynamicPageAlignContent"
+				items="{
+					path: '/ProjectOdataSet',
+					groupHeaderFactory: '.createGroupHeader'
+				}"
+				busyIndicatorDelay="{masterView>/delay}"
+				noDataText="{masterView>/noDataText}"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+				growing="true"
+				growingScrollToLoad="true"
+				updateFinished="onUpdateFinished"
+				selectionChange="onSelectionChangeProject">
+				<headerToolbar>
+					<OverflowToolbar>
+						<SearchField
+							id="searchFieldEmployee"
+							showRefreshButton="true"
+							tooltip="{i18n>masterSearchTooltip}"
+							search="onSearch"
+							width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData
+									minWidth="150px"
+									maxWidth="240px"
+									shrinkable="true"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<ToolbarSpacer/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<items>
+					<ObjectListItem
+						type="Navigation"
+						press="onSelectionChangeProject"
+						title="{Titel}"
+>
+					</ObjectListItem>
+				</items>
+			</List>
+		</content>
+                    </IconTabFilter>
+                </items>
+                
+            </IconTabBar>
+        </semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

@@ -1,0 +1,54 @@
+<mvc:View
+	controllerName="be.ehb.ProjectFlexso.controller.Detail"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage
+		id="detailPage"
+		busy="{detailView>/busy}"
+		busyIndicatorDelay="{detailView>/delay}">
+		<semantic:titleHeading>
+			<Title text="{Firstname} {Lastname}"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<!-- <ObjectAttribute title="{i18n>priceTitle}"/> -->
+
+		</semantic:headerContent>
+		<semantic:content>
+			<MessageStrip text="Name: {Firstname} {Lastname}" class="sapUiTinyMargin" />
+			<MessageStrip text="Phone: {Phonenumber}" class="sapUiTinyMargin" />
+			<MessageStrip text="Adres: {Address}" class="sapUiTinyMargin" />
+			<MessageStrip text="Birthdate: {Birthdate}" class="sapUiTinyMargin" />
+			<MessageStrip text="Job: {Job}" class="sapUiTinyMargin" />
+		
+		</semantic:content>
+		<!--Semantic ShareMenu Buttons-->
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction
+				id="shareEmail"
+				press="onSendEmailPress"/>
+		</semantic:sendEmailAction>
+
+		<semantic:closeAction>
+			<semantic:CloseAction
+					id="closeColumn"
+					press="onCloseDetailPress"/>
+		</semantic:closeAction>
+
+		<semantic:fullScreenAction>
+			<semantic:FullScreenAction
+					id="enterFullScreen"
+					visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+					press="toggleFullScreen"/>
+		</semantic:fullScreenAction>
+		<semantic:exitFullScreenAction>
+			<semantic:ExitFullScreenAction
+					id="exitFullScreen"
+					visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"
+					press="toggleFullScreen"/>
+		</semantic:exitFullScreenAction>
+
+	</semantic:SemanticPage>
+
+</mvc:View>
